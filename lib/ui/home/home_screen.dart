@@ -27,6 +27,7 @@ class _HomePageState extends State<HomePage> with HomeMixin {
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             appBar(),
             const SizedBox(height: 36),
@@ -37,6 +38,9 @@ class _HomePageState extends State<HomePage> with HomeMixin {
             horizontalListHeader(),
             const SizedBox(height: 10),
             horizontalList(),
+            const SizedBox(height: 20),
+            verticalListHeader(),
+            const SizedBox(height: 10),
           ],
         ),
       ),
@@ -222,16 +226,41 @@ class _HomePageState extends State<HomePage> with HomeMixin {
   Widget horizontalList() {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
-      child: SizedBox(
-        height: MediaQuery.of(context).size.height * 0.32,
-        child: Row(
-          children: [
-            ImageContainer(img: "assets/Image.png"),
-            ImageContainer(img: "assets/Image.png"),
-            ImageContainer(img: "assets/Image.png"),
-          ],
-        ),
+      child: Row(
+        children: imgHouses
+            .map(
+              (img) => ImageContainer(
+                housesData: img,
+              ),
+            )
+            .toList(),
       ),
+    );
+  }
+
+  Widget verticalListHeader() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        const Text(
+          "Melhores",
+          style: TextStyle(
+            color: CustomColors.black,
+            fontSize: 16,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+        TextButton(
+          onPressed: () {},
+          child: const Text(
+            "Ver tudo",
+            style: TextStyle(
+              color: CustomColors.figGrey,
+              fontSize: 12,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
