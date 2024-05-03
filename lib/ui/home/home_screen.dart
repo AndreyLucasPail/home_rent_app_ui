@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:home_rent_app_ui/ui/colors/custom_colors.dart';
 import 'package:home_rent_app_ui/ui/home/home_mixin.dart';
+import 'package:home_rent_app_ui/ui/home/widget/house_tile.dart';
 import 'package:home_rent_app_ui/ui/home/widget/img_container.dart';
+import 'package:home_rent_app_ui/ui/house_screen/house_screen.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -35,12 +37,13 @@ class _HomePageState extends State<HomePage> with HomeMixin {
             const SizedBox(height: 20),
             rowOfButtons(),
             const SizedBox(height: 20),
-            horizontalListHeader(),
+            nearToYouHeader(),
             const SizedBox(height: 10),
-            horizontalList(),
+            nearToYouList(),
             const SizedBox(height: 20),
-            verticalListHeader(),
+            bestHeader(),
             const SizedBox(height: 10),
+            bestList(),
           ],
         ),
       ),
@@ -197,7 +200,7 @@ class _HomePageState extends State<HomePage> with HomeMixin {
     );
   }
 
-  Widget horizontalListHeader() {
+  Widget nearToYouHeader() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -223,14 +226,24 @@ class _HomePageState extends State<HomePage> with HomeMixin {
     );
   }
 
-  Widget horizontalList() {
+  Widget nearToYouList() {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
-        children: imgHouses
+        children: houses
             .map(
-              (img) => ImageContainer(
-                housesData: img,
+              (house) => GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => HouseScreen(house: house),
+                    ),
+                  );
+                },
+                child: ImageContainer(
+                  housesData: house,
+                ),
               ),
             )
             .toList(),
@@ -238,7 +251,7 @@ class _HomePageState extends State<HomePage> with HomeMixin {
     );
   }
 
-  Widget verticalListHeader() {
+  Widget bestHeader() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -261,6 +274,26 @@ class _HomePageState extends State<HomePage> with HomeMixin {
           ),
         ),
       ],
+    );
+  }
+
+  Widget bestList() {
+    return Column(
+      children: houses
+          .map(
+            (house) => GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => HouseScreen(house: house),
+                  ),
+                );
+              },
+              child: HouseTile(houses: house),
+            ),
+          )
+          .toList(),
     );
   }
 }
