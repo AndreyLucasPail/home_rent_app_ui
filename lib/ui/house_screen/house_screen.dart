@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:home_rent_app_ui/ui/colors/custom_colors.dart';
+import 'package:home_rent_app_ui/ui/house_screen/house_mixin.dart';
 
 class HouseScreen extends StatefulWidget {
   const HouseScreen({
@@ -15,7 +16,7 @@ class HouseScreen extends StatefulWidget {
   State<HouseScreen> createState() => _HouseScreenState();
 }
 
-class _HouseScreenState extends State<HouseScreen> {
+class _HouseScreenState extends State<HouseScreen> with HouseMixin {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -36,8 +37,12 @@ class _HouseScreenState extends State<HouseScreen> {
             houseCard(),
             const SizedBox(height: 20),
             description(),
-            const SizedBox(height: 20),
+            const SizedBox(height: 30),
             ownerCard(),
+            const SizedBox(height: 30),
+            gallery(),
+            const SizedBox(height: 30),
+            local(),
           ],
         ),
       ),
@@ -199,15 +204,15 @@ class _HouseScreenState extends State<HouseScreen> {
   }
 
   Widget ownerCard() {
-    return const Row(
+    return Row(
       children: [
-        CircleAvatar(
-          radius: 40,
+        const CircleAvatar(
+          radius: 30,
           backgroundImage: AssetImage("assets/jurica-koletic.png"),
           backgroundColor: CustomColors.figGrey,
         ),
-        SizedBox(width: 10),
-        Column(
+        const SizedBox(width: 10),
+        const Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
@@ -227,6 +232,156 @@ class _HouseScreenState extends State<HouseScreen> {
               ),
             ),
           ],
+        ),
+        const Spacer(),
+        SizedBox(
+          height: 40,
+          width: 40,
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              padding: EdgeInsets.zero,
+              backgroundColor: CustomColors.figLigthBlue2.withOpacity(0.5),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+            onPressed: () {},
+            child: const Icon(
+              Icons.phone,
+            ),
+          ),
+        ),
+        const SizedBox(width: 20),
+        SizedBox(
+          height: 40,
+          width: 40,
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              padding: EdgeInsets.zero,
+              backgroundColor: CustomColors.figLigthBlue2.withOpacity(0.5),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+            onPressed: () {},
+            child: const Icon(
+              Icons.message,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget gallery() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          "Galeria",
+          style: TextStyle(
+            color: CustomColors.black,
+            fontSize: 20,
+            fontWeight: FontWeight.w800,
+          ),
+        ),
+        const SizedBox(height: 30),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: interiorImg.map((img) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Container(
+                  height: 125,
+                  width: 125,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage(img),
+                      fit: BoxFit.cover,
+                      filterQuality: FilterQuality.high,
+                    ),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                ),
+              );
+            }).toList(),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget local() {
+    return Stack(
+      children: [
+        Container(
+          height: 200,
+          width: MediaQuery.of(context).size.width,
+          decoration: BoxDecoration(
+            image: const DecorationImage(
+              image: AssetImage("assets/maps.png"),
+              fit: BoxFit.cover,
+              filterQuality: FilterQuality.high,
+            ),
+            borderRadius: BorderRadius.circular(16),
+          ),
+        ),
+        Positioned(
+          left: 20,
+          bottom: 20,
+          child: Row(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    "Preço",
+                    style: TextStyle(
+                      color: CustomColors.figGrey,
+                      fontSize: 16,
+                    ),
+                  ),
+                  Text(
+                    "${widget.house["price"].toStringAsFixed(3)} /Mês",
+                    style: const TextStyle(
+                      color: CustomColors.black,
+                      fontSize: 20,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(width: 130),
+              Container(
+                height: 50,
+                width: 100,
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    colors: [
+                      CustomColors.figLigthBlue,
+                      CustomColors.figBlue,
+                    ],
+                  ),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.transparent,
+                    shadowColor: Colors.transparent,
+                  ),
+                  onPressed: () {},
+                  child: const Text(
+                    "Alugar",
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: CustomColors.white,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ],
     );
