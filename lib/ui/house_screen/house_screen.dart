@@ -351,7 +351,7 @@ class _HouseScreenState extends State<HouseScreen> with HouseMixin {
                   ),
                 ],
               ),
-              const SizedBox(width: 130),
+              SizedBox(width: MediaQuery.of(context).size.width * 0.25),
               Container(
                 height: 50,
                 width: 100,
