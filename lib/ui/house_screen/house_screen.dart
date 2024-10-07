@@ -248,6 +248,7 @@ class _HouseScreenState extends State<HouseScreen> with HouseMixin {
             onPressed: () {},
             child: const Icon(
               Icons.phone,
+              color: CustomColors.white,
             ),
           ),
         ),
@@ -266,6 +267,7 @@ class _HouseScreenState extends State<HouseScreen> with HouseMixin {
             onPressed: () {},
             child: const Icon(
               Icons.message,
+              color: CustomColors.white,
             ),
           ),
         ),

@@ -114,30 +114,25 @@ class _HomePageState extends State<HomePage> with HomeMixin {
             ),
           ),
         ),
-        Container(
-          height: 48,
-          width: 48,
-          decoration: BoxDecoration(
-            gradient: const LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                CustomColors.figLigthBlue,
-                CustomColors.figBlue,
-              ],
+        InkWell(
+          onTap: () {},
+          child: Container(
+            height: 48,
+            width: 48,
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  CustomColors.figLigthBlue,
+                  CustomColors.figBlue,
+                ],
+              ),
+              borderRadius: BorderRadius.circular(10),
             ),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.transparent,
-              shadowColor: Colors.transparent,
-              shape: const RoundedRectangleBorder(),
-            ),
-            onPressed: () {},
-            child: SvgPicture.asset(
-              "assets/IC_Filter.svg",
-              fit: BoxFit.cover,
+            child: const Icon(
+              Icons.line_weight_sharp,
+              color: CustomColors.white,
             ),
           ),
         ),
